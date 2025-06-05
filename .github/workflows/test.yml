@@ -1,0 +1,17 @@
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 
+        name: Checkout
+      # Install Node.js and needed dependencies
+      - uses: kyma-project/test-infra/.github/actions/expose-jwt-action/install@main
+        name: Install expose-jwt-action
+      # This action is used to expose the JWT token from the OIDC provider and set is as an output and an environment variable
+      - uses: kyma-project/test-infra/.github/actions/expose-jwt-action@main
+        name: Expose JWT token
+        with:
+          audience: 'sts.amazonaws.com'
